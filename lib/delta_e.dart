@@ -91,37 +91,49 @@ double deltaE94(LabColor lab1, LabColor lab2, [ Weights weights = const Weights(
 /// 
 /// Source: https://en.wikipedia.org/wiki/Color_difference#CIEDE2000
 double deltaE00(LabColor lab1, LabColor lab2, [ Weights weights = const Weights() ]) {
+    // Delta L Prime
     double deltaLPrime = lab2.l - lab1.l;
+    // L Bar
     double lBar = (lab1.l + lab2.l) / 2;
+    // C1 & C2
     double c1 = sqrt(pow(lab1.a, 2) + pow(lab1.b, 2)),
            c2 = sqrt(pow(lab2.a, 2) + pow(lab2.b, 2));
+    // C Bar
     double cBar = (c1 + c2) / 2;
+    // A Prime 1
     double aPrime1 = lab1.a +
         (lab1.a / 2) *
         (1 - sqrt(
             pow(cBar, 7) /
             (pow(cBar, 7) + pow(25, 7))
         ));
+    // A Prime 2
     double aPrime2 = lab2.a +
         (lab2.a / 2) *
         (1 - sqrt(
             pow(cBar, 7) /
             (pow(cBar, 7) + pow(25, 7))
         ));
+    // C Prime 1
     double cPrime1 = sqrt(
         pow(aPrime1, 2) +
         pow(lab1.b, 2)
     );
+    // C Prime 2
     double cPrime2 = sqrt(
         pow(aPrime2, 2) +
         pow(lab2.b, 2)
     );
+    // C Bar Prime
     double cBarPrime = (cPrime1 + cPrime2) / 2;
+    // Delta C Prime
     double deltaCPrime = cPrime2 - cPrime1;
+    // S sub L
     double sSubL = 1 + (
         (0.015 * pow(lBar - 50, 2)) /
         sqrt(20 + pow(lBar - 50, 2))
     );
+    // S sub C
     double sSubC = 1 + 0.045 * cBarPrime;
     // h Primes
     double hPrime1 = _getPrimeFn(lab1.b, aPrime1),
@@ -129,13 +141,13 @@ double deltaE00(LabColor lab1, LabColor lab2, [ Weights weights = const Weights(
     // Delta h Prime
     double deltahPrime;
     // - When either C′1 or C′2 is zero, then Δh′ is irrelevant and may be set to zero.
-    if(c1 == 0 || c2 == 0) deltahPrime = 0;
-    else if((hPrime1 - hPrime2).abs() <= 180) deltahPrime = hPrime2 - hPrime1;
-    else if(hPrime2 <= hPrime1) deltahPrime = hPrime2 - hPrime1 + 360;
-    else deltahPrime = hPrime2 - hPrime1 - 360;
+    if(c1 == 0 || c2 == 0) deltahPrime = 0.0;
+    else if((hPrime1 - hPrime2).abs() <= 180.0) deltahPrime = hPrime2 - hPrime1;
+    else if(hPrime2 <= hPrime1) deltahPrime = hPrime2 - hPrime1 + 360.0;
+    else deltahPrime = hPrime2 - hPrime1 - 360.0;
     // Delta H Prime
     double deltaHPrime = 2 *
-        sqrt(cPrime1 + cPrime2) *
+        sqrt(cPrime1 * cPrime2) *
         sin(_degreesToRadians(deltahPrime) / 2);
     // H Bar Prime
     double hBarPrime;
