@@ -46,6 +46,6 @@ Used to configure the weight factors of the 1994 and 2000 formulas. All the fact
 Represents a DeltaE algorithm. It can be either cie76, cie94 or ciede2000.
 ## Tests
 The tests have been ported using the **test** package. You can run them from the following command from inside this package's folder.
-```dart
+```console
 pub run test test/test.dart
 ```
