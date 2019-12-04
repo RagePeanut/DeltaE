@@ -5,7 +5,7 @@ void main() {
     LabColor color1 = LabColor(36, 60, 41);
     LabColor color2 = LabColor(55, 66, 77);
 
-    group('deltaE', () {
+    group('Delta E', () {
         // CIE76 algorithm
         group('dE76', () {
             // http://colormine.org/delta-e-calculator
@@ -15,8 +15,8 @@ void main() {
                 double resultDirect = deltaE76(color1, color2);
                 double resultGlobal = deltaE(color1, color2, algorithm: DeltaEAlgorithm.cie76);
 
-                expect(resultDirect, equals(correctDeltaE));
-                expect(resultGlobal, equals(correctDeltaE));
+                expect(resultDirect, correctDeltaE);
+                expect(resultGlobal, correctDeltaE);
             });
         });
         // CIE94 algorithm
@@ -28,8 +28,8 @@ void main() {
                 double resultDirect = deltaE94(color1, color2);
                 double resultGlobal = deltaE(color1, color2, algorithm: DeltaEAlgorithm.cie94);
 
-                expect(resultDirect, equals(correctDeltaE));
-                expect(resultGlobal, equals(correctDeltaE));
+                expect(resultDirect, correctDeltaE);
+                expect(resultGlobal, correctDeltaE);
             });
         });
         // CIE2000 algorithm
@@ -41,8 +41,8 @@ void main() {
                 double resultDirect = deltaE00(color1, color2);
                 double resultGlobal = deltaE(color1, color2, algorithm: DeltaEAlgorithm.ciede2000);
                 
-                expect(resultDirect, equals(correctDeltaE));
-                expect(resultGlobal, equals(correctDeltaE));
+                expect(resultDirect, correctDeltaE);
+                expect(resultGlobal, correctDeltaE);
             });
             /**
              * Cases taken from the paper "The CIEDE2000 Color-Difference Formula:
@@ -162,11 +162,35 @@ void main() {
             });
         });
     });
+
+    // Expected values taken from http://colormine.org/convert/rgb-to-lab
+    group('Lab Color', () {
+        LabColor expected = LabColor(28.1103, 25.9003, -5.2481);
+        test('RGB to Lab (#1)', () {
+            assertLabColor(expected, LabColor.fromRGB(100, 50, 75));
+        });
+        test('RGB to Lab (#2)', () {
+            assertLabColor(expected, LabColor.fromRGBValue(0x64324B, RGBStructure.rgb));
+        });
+        test('RGB to Lab (#3)', () {
+            assertLabColor(expected, LabColor.fromRGBValue(0xFF64324B));
+            assertLabColor(expected, LabColor.fromRGBValue(0xFF64324B, RGBStructure.argb));
+        });
+        test('RGB to Lab (#4)', () {
+            assertLabColor(expected, LabColor.fromRGBValue(0x64324BFF, RGBStructure.rgba));
+        });
+    });
 }
 
 void assertDeltaE00(double expected, LabColor c1, LabColor c2) {
-    expect(round(deltaE00(c1, c2)), equals(round(expected)));
-    expect(round(deltaE00(c2, c1)), equals(round(expected)));
+    expect(round(deltaE00(c1, c2)), round(expected));
+    expect(round(deltaE00(c2, c1)), round(expected));
+}
+
+void assertLabColor(LabColor expected, LabColor result) {
+    expect(round(result.l), expected.l);
+    expect(round(result.a), expected.a);
+    expect(round(result.b), expected.b);
 }
 
 double round(double n) {

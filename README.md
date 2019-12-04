@@ -38,7 +38,7 @@ Another way of calling the three above functions by passing an algorithm paramet
 * **LabColor(double lightness, double chroma, double hue)**<br>
 Represents a color in the CIELAB color space, required by all top-level functions.
 The lightness (L*) must be between 0 and 100, the chroma (a*) between -128 and 128, and the hue (b*) between -128 and 128.
-This class comes with a handy factory that creates LabColor instances from RGB values.
+This class comes with handy factories that create LabColor instances from RGB, ARGB and RGBA values (alpha is ignored).
 * **Weights({ double lightness = 1, double chroma = 1, double hue = 1 })**<br>
 Used to configure the weight factors of the 1994 and 2000 formulas. All the factors must be positive.
 ### Enums

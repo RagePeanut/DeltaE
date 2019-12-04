@@ -199,7 +199,7 @@ double _getPrimeFn(double x, double y) {
 /// Converts `radians` to degrees.
 double _radiansToDegrees(num radians) => radians * (180 / pi);
 
-/// A color represented in the CIELAB color space which expresses colors as three values:
+/// A color represented in the CIELAB color space which expresses a color as three values:
 /// its lightness (L\*) from black (0) to white (100), its chroma (a\*) from green (-180) to
 /// red (+180), and its hue (b\*) from blue (-180) to yellow (+180).
 /// 
@@ -214,6 +214,33 @@ class LabColor {
         : assert(lightness >= 0 && lightness <= 100),
           assert(chroma >= -128 && chroma <= 128),
           assert(hue >= -128 && hue <= 128);
+
+    /// Constructs a `LabColor` from a RGB color value. The `structure` parameter is used to specify how `value` is structured, it's set to `RGBStructure.argb` by default (which is what Flutter uses for its color values).
+    /// 
+    /// Reference: https://gist.github.com/manojpandey/f5ece715132c572c80421febebaf66ae
+    factory LabColor.fromRGBValue(int value, [ RGBStructure structure = RGBStructure.argb ]) {
+        switch(structure) {
+            case RGBStructure.rgb:
+                return LabColor.fromRGB(
+                    (value & 0xFF0000) >> 16,
+                    (value & 0x00FF00) >> 8,
+                    value & 0x0000FF,
+                );
+            case RGBStructure.rgba:
+                return LabColor.fromRGB(
+                    (value & 0xFF000000) >> 24,
+                    (value & 0x00FF0000) >> 16,
+                    (value & 0x0000FF00) >> 8,
+                );
+            case RGBStructure.argb:
+            default:
+                return LabColor.fromRGB(
+                    (value & 0x00FF0000) >> 16,
+                    (value & 0x0000FF00) >> 8,
+                    value & 0x000000FF,
+                );
+        }
+    }
 
     /// Constructs a `LabColor` from a RGB color.
     /// 
@@ -274,6 +301,16 @@ class Weights {
     final double lightness;
     final double chroma;
     final double hue;
+}
+
+// Used to specify which RGB structure an integer value has.
+enum RGBStructure {
+    /// Alpha Red Green Blue
+    argb,
+    /// Red Green Blue
+    rgb,
+    /// Red Green Blue Alpha
+    rgba,
 }
 
 /// The algorithms used to calculate the difference between two colors.
