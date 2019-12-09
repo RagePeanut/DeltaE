@@ -1,9 +1,9 @@
 name: delta_e
-description: CIE color difference algorithms in Dart.
+description: CIE color difference algorithms in Dart. This contains the dE76, dE94 and dE00 color difference algorithms produced by the International Commission on Illumination.
 author: RagePeanut <ragepeanut1@gmail.com>
 homepage: https://github.com/RagePeanut/DeltaE
 
-version: 0.0.3
+version: 0.1.0+1
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

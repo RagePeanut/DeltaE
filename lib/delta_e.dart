@@ -141,18 +141,26 @@ double deltaE00(LabColor lab1, LabColor lab2, [ Weights weights = const Weights(
     // Delta h Prime
     double deltahPrime;
     // - When either C′1 or C′2 is zero, then Δh′ is irrelevant and may be set to zero.
-    if(c1 == 0 || c2 == 0) deltahPrime = 0.0;
-    else if((hPrime1 - hPrime2).abs() <= 180.0) deltahPrime = hPrime2 - hPrime1;
-    else if(hPrime2 <= hPrime1) deltahPrime = hPrime2 - hPrime1 + 360.0;
-    else deltahPrime = hPrime2 - hPrime1 - 360.0;
+    if(c1 == 0 || c2 == 0) {
+        deltahPrime = 0.0;
+    } else if((hPrime1 - hPrime2).abs() <= 180.0) {
+        deltahPrime = hPrime2 - hPrime1;
+    } else if(hPrime2 <= hPrime1) {
+        deltahPrime = hPrime2 - hPrime1 + 360.0;
+    } else {
+        deltahPrime = hPrime2 - hPrime1 - 360.0;
+    }
     // Delta H Prime
     double deltaHPrime = 2 *
         sqrt(cPrime1 * cPrime2) *
         sin(_degreesToRadians(deltahPrime) / 2);
     // H Bar Prime
     double hBarPrime;
-    if((hPrime1 - hPrime2).abs() > 180) hBarPrime = (hPrime1 + hPrime2 + 360) / 2;
-    else hBarPrime = (hPrime1 + hPrime2) / 2;
+    if((hPrime1 - hPrime2).abs() > 180) {
+        hBarPrime = (hPrime1 + hPrime2 + 360) / 2;
+    } else {
+        hBarPrime = (hPrime1 + hPrime2) / 2;
+    }
     // T
     double t = 1 -
         0.17 * cos(_degreesToRadians(hBarPrime - 30)) +
@@ -191,7 +199,9 @@ double _degreesToRadians(num degrees) => degrees * (pi / 180);
 
 /// A helper function to calculate the h Prime 1 and h Prime 2 values.
 double _getPrimeFn(double x, double y) {
-    if(x == 0 && y == 0) return 0;
+    if(x == 0 && y == 0) {
+        return 0;
+    }
     double hueAngle = _radiansToDegrees(atan2(x, y));
     return hueAngle >= 0 ? hueAngle : hueAngle + 360;
 }
@@ -248,8 +258,11 @@ class LabColor {
     factory LabColor.fromRGB(int red, int green, int blue) {
         List<num> rgb = [red, green, blue].map((int channel) {
             double value = channel / 255;
-            if(value > 0.04045) value = pow(((value + 0.055) / 1.055), 2.4);
-            else value /= 12.92;
+            if(value > 0.04045) {
+                value = pow(((value + 0.055) / 1.055), 2.4);
+            } else {
+                value /= 12.92;
+            }
             return value * 100;
         }).toList();
 
@@ -258,8 +271,11 @@ class LabColor {
             (rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722) / 100,
             (rgb[0] * 0.0193 + rgb[1] * 0.1192 + rgb[2] * 0.9505) / 108.883,
         ].map((double value) {
-            if(value > 0.008856) return pow(value, (1/3).toDouble());
-            else return (7.787 * value) + (16 / 116); 
+            if(value > 0.008856) {
+                return pow(value, (1/3).toDouble());
+            } else {
+                return (7.787 * value) + (16 / 116);
+            }
         }).toList();
 
         return LabColor(
