@@ -1,19 +1,22 @@
 # DeltaE - Quantify Color Difference
-This is a Dart port of zschuessler's JavaScript **DeltaE** library which you can check out here: https://github.com/zschuessler/DeltaE.
+CIE color difference algorithms in Dart. This is a port of zschuessler's JavaScript **DeltaE** library which you can check out here: https://github.com/zschuessler/DeltaE.
 
 ## How to use it
 This package differs from the original JavaScript version in quite a few ways. You can compare the following code to the original library's *Use It*
 section to get a sense of differences between the two.
 ```dart
-// Create two test LAB color objects to compare!
+// Creating two test LAB color objects to compare
 LabColor lab1 = LabColor(36, 60, 41);
 LabColor lab2 = LabColor(100, 40, 90);
 // 1976 formula
-print(deltaE76(lab1, lab2)); // OR: print(deltaE(lab1, lab2, algorithm: DeltaEAlgorithm.cie76));
+print(deltaE76(lab1, lab2)); // 83.04817878797824
+print(deltaE(lab1, lab2, algorithm: DeltaEAlgorithm.cie76)); // 83.04817878797824
 // 1994 formula
-print(deltaE94(lab1, lab2)); // OR: print(deltaE(lab1, lab2, algorithm: DeltaEAlgorithm.cie94));
+print(deltaE94(lab1, lab2)); // 67.97917774753019
+print(deltaE(lab1, lab2, algorithm: DeltaEAlgorithm.cie94)); // 67.97917774753019
 // 2000 formula
-print(deltaE00(lab1, lab2)); // OR: print(deltaE(lab1, lab2, algorithm: DeltaEAlgorithm.ciede2000));
+print(deltaE00(lab1, lab2)); // 56.85828292477247
+print(deltaE(lab1, lab2, algorithm: DeltaEAlgorithm.ciede2000)); // 56.85828292477247
 ```
 ### Top-Level Functions
 * **deltaE76(LabColor lab1, LabColor lab2)**<br>
@@ -47,5 +50,5 @@ Represents a DeltaE algorithm. It can be either cie76, cie94 or ciede2000.
 ## Tests
 The tests have been ported using the **test** package. You can run them from the following command from inside this package's folder.
 ```console
-pub run test test/test.dart
+pub run test test/delta_e_test.dart
 ```
