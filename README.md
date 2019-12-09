@@ -1,5 +1,5 @@
 # DeltaE - Quantify Color Difference
-CIE color difference algorithms in Dart. This is a port of zschuessler's JavaScript **DeltaE** library which you can check out here: https://github.com/zschuessler/DeltaE.
+CIE color difference algorithms in Dart. This is a port of zschuessler's JavaScript **DeltaE** library. You can learn about the Delta E metric here: https://zschuessler.github.io/DeltaE/learn/.
 
 ## How to use it
 This package differs from the original JavaScript version in quite a few ways. You can compare the following code to the original library's *Use It*
