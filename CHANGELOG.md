@@ -1,3 +1,6 @@
+## 0.1.0+2
+- Code formatting (using dartfmt)
+
 ## 0.1.0+1
 
 - Further optimization for pub.dev (adding curly braces to flow control structures)
