@@ -3,7 +3,7 @@ description: CIE color difference algorithms in Dart. This contains the dE76, dE
 author: RagePeanut <ragepeanut1@gmail.com>
 homepage: https://github.com/RagePeanut/DeltaE
 
-version: 0.1.0+1
+version: 0.1.0+2
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
