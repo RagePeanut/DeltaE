@@ -1,3 +1,7 @@
+## 0.2.0
+
+- Enable NNBD, bumping minimum sdk version to 2.12.0
+
 ## 0.1.0+2
 
 - Code formatting (using dartfmt)

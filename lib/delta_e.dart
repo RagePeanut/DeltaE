@@ -224,7 +224,7 @@ class LabColor {
     List<num> rgb = [red, green, blue].map((int channel) {
       double value = channel / 255;
       if (value > 0.04045) {
-        value = pow(((value + 0.055) / 1.055), 2.4);
+        value = pow(((value + 0.055) / 1.055), 2.4).toDouble();
       } else {
         value /= 12.92;
       }
@@ -244,9 +244,9 @@ class LabColor {
     }).toList();
 
     return LabColor(
-      (116 * xyz[1]) - 16,
-      500 * (xyz[0] - xyz[1]),
-      200 * (xyz[1] - xyz[2]),
+      (116.0 * xyz[1]) - 16,
+      500.0 * (xyz[0] - xyz[1]),
+      200.0 * (xyz[1] - xyz[2]),
     );
   }
 
