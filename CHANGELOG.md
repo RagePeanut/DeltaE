@@ -1,3 +1,6 @@
+## 0.2.1
+- Floating point error fix for the 1994 algorithm, bumping maximum sdk version to 4.0.0
+
 ## 0.2.0
 
 - Enable NNBD, bumping minimum sdk version to 2.12.0

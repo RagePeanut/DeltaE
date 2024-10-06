@@ -67,6 +67,7 @@ double deltaE94(LabColor lab1, LabColor lab2,
   // b - Top
   double hab =
       sqrt(pow(lab1.a - lab2.a, 2) + pow(lab1.b - lab2.b, 2) - pow(cab, 2));
+  if (hab.isNaN) hab = 0;
   // b - Bottom
   double sh = 1 + (k2 * c1), b = hab / sh;
 

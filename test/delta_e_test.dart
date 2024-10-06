@@ -33,6 +33,17 @@ void main() {
         expect(resultDirect, correctDeltaE);
         expect(resultGlobal, correctDeltaE);
       });
+      test('Handle floating point error', () {
+        double correctDeltaE = 2.3524048718867823;
+        LabColor lab1 =
+            LabColor(53.23288178584245, 80.10930952982204, 67.22006831026425);
+        LabColor lab2 =
+            LabColor(50.9588099835815, 77.47798295202801, 65.01211079141827);
+
+        double result = deltaE94(lab1, lab2);
+
+        expect(result, correctDeltaE);
+      });
     });
     // CIE2000 algorithm
     group('dE00', () {
@@ -48,10 +59,10 @@ void main() {
         expect(resultGlobal, correctDeltaE);
       });
       /**
-             * Cases taken from the paper "The CIEDE2000 Color-Difference Formula:
-             * Implementation Notes, Supplementary Test Data, and Mathematical Observations"
-             * by Gaurav Sharma, Wencheng Wu and Edul N. Dalal.
-             */
+		* Cases taken from the paper "The CIEDE2000 Color-Difference Formula:
+		* Implementation Notes, Supplementary Test Data, and Mathematical Observations"
+		* by Gaurav Sharma, Wencheng Wu and Edul N. Dalal.
+		*/
       test('0.0 difference', () {
         assertDeltaE00(0.0, LabColor(0.0, 0.0, 0.0), LabColor(0.0, 0.0, 0.0));
         assertDeltaE00(
